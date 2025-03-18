@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Speler</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Klik ergens om audio af te spelen</h1>
+    <audio id="mijnAudio">
+        <source src="audio.mp3" type="audio/mpeg">
+        Je browser ondersteunt geen audio-element.
+    </audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("mijnAudio");
+
+            function speelAudio() {
+                let playPromise = audio.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log("Audio speelt automatisch af.");
+                    }).catch(error => {
+                        console.log("Autoplay geblokkeerd. Klik nodig.");
+                    });
+                }
+            }
+
+            // Probeer direct af te spelen bij laden
+            speelAudio();
+
+            // Als autoplay geblokkeerd wordt, kan een klik de audio starten
+            document.body.addEventListener("click", function () {
+                speelAudio();
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
